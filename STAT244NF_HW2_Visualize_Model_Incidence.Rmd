@@ -13,7 +13,7 @@ output: pdf_document
 3. You may knit to PDF, HTML, or Word (click on the drop-down menu for Knit to choose the file output type). 
 4. Before submitting your work, please make sure the knitted file is well organized, legible, and looks the way you expect!
 5. Please include the names of any classmates with whom you worked on this homework, as well as any external resources that you might have used.
-6. This homework assignment is **due on Friday, September 17, 2021 and should be submitted to Gradescope**.
+6. This homework assignment is **due on Friday, February 9, 2024 and should be submitted to Gradescope**.
 
 - *Collaborators:*
 
