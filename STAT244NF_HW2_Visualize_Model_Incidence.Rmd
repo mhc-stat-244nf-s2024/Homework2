@@ -1,0 +1,96 @@
+---
+title: "Homework 2: Visualizing and Modeling Disease Incidence"
+subtitle: "STAT 244NF: Infectious Disease Modeling"
+author: "YOUR NAME HERE"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: pdf_document
+---
+
+## Instructions:
+
+1. Please replace "YOUR NAME HERE" under author above with your name before you knit your final document for submission.
+2. All of your homework needs to be completed in this document, whether it requires R or just typed responses. As we incorporate more statistical computing into the course, it will be important that you are comfortable with R Markdown, so start now. Remember that R Markdown gives us a convenient framework for reproducible statistical reports because it contains a complete record of our analyses and conclusions.
+3. You may knit to PDF, HTML, or Word (click on the drop-down menu for Knit to choose the file output type). 
+4. Before submitting your work, please make sure the knitted file is well organized, legible, and looks the way you expect!
+5. Please include the names of any classmates with whom you worked on this homework, as well as any external resources that you might have used.
+6. This homework assignment is **due on Friday, September 17, 2021 and should be submitted to Gradescope**.
+
+- *Collaborators:*
+
+- *External resources:*
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(dplyr)
+library(ggplot2)
+library(incidence)
+library(outbreaks)
+```
+
+For this homework assignment, we will be working with a data set for an outbreak of Nipah virus in Malaysia and Singapore from 1997 to 1999. This data set is available through the *outbreaks* package in R. The description of the infection and viral outbreak available with the data are as follows.
+
+"Nipah virus is a paramyxovirus that occurs in flying fox (fruit bat) populations throughout Asia. The data provided are from the first known emergence of Nipah virus into humans. During this outbreak, the virus was transmitted from bats to pigs, where it circulated in commercial pig farms, infecting mostly farm and abbatoir workers (people who work in slaughterhouses). The outbreak started in Perak State, later spreading to Negeri Sembilan and Seleangor through sale of infected pigs. There were also 11 cases reported among abbatoir workers in Singapore. The data, as published in Pulliam et al. (2011), include all 257 clinical cases recorded in humans from 1997-01-11 to 1999-04-14, when the outbreak ended following large-scale depopulation of pig farms. Human cases represent zoonotic infections (transmission from animals to humans), with little or no human-to-human transmission. Thus, the epidemic curve reflects transmission and spatial spread within pigs."
+
+
+```{r}
+data("nipah_malaysia")
+nipah_malaysia <- nipah_malaysia %>%
+  mutate(
+    all_cases = rowSums(select_if(.,is.numeric))
+  )
+```
+
+
+## Linear Regression and Log Transformations
+
+Since we are most familiar with linear regression from previous coursework, we might be inclined first to see if a linear regression model will allow us to adequately explain the relationship between time and new cases.
+
+### Assumptions of a linear model
+
+In an introductory statistics course, you learned that certain conditions need to be checked for a linear regression model, including:
+
+1. Linearity;
+2. Nearly normal residuals;
+3. Constant variability;
+4. Independence of observations.
+
+**Question LR 1:** Create a plot to determine whether it is reasonable to assume a linear relationship between cases (use `all_cases`) and time (`date`). For a complete answer, include both your plot and 1-2 sentences explaining why a linear relationship is or is not appropriate to assume.
+
+```{r}
+
+```
+
+**Question LR 2:** Regardless of your answer in LR 1, assume for this question that a linear relationship between `all_cases` and `date` is not appropriate to assume. Copy and paste the code from above used to create the `all_cases` column in the `nipah_malaysia` data set. Modify that code to create a new variable, `log_all_cases = log(all_cases)` (this is a log transformation). Then, create a plot to determine whether it is reasonable to assume a linear relationship between log cases (use `log_all_cases`) and time (`date`). For a complete answer, include both your plot and 1-2 sentences explaining why a linear relationship is or is not appropriate to assume.
+
+```{r}
+
+```
+
+**Question LR 3:** When you made your plot in LR 2, you should see 18 dots between January and July of 1997 that are below 0. R is plotting these just below 0, but this does not reflect their true values. What are the true values of `log(all_cases)` for these 18 dots? Do you think this is a problem? *Hint: If you are stuck, consider the original values of `all_cases` and what evaluating the natural log for each of them would yield mathematically.*
+
+
+
+
+**Question LR 4:** We can get around the problem in LR 3 shifting all the counts by 1 so that we get all finite values for `log_all_cases`. Copy and paste your code from Question LR 2 and modify that code: `log_all_cases = log(all_cases+1)`. Now fit a linear model (using the `lm()` function in R) where the outcome is this new `log_all_cases` variable and the explanatory variable is `date`. What is the estimated growth rate for this viral outbreak? Note, because this analysis is on the log scale, make sure to exponentiate (r function `exp()`) the estimate you get from your model and include the appropriate time scale in your label.
+
+```{r}
+
+```
+
+**Question LR 5:** Use the `confint()` function to determine the 95% confidence interval for the growth rate. Because this analysis is on the log scale, make sure to exponentiate (r function `exp()`) the confidence interval bounds to get an answer in terms of growth rate (rather than log growth rate). For a complete answer, also interpret the meaning of the confidence interval in terms of the expected growth rate for Nipah virus in this population, including the appropriate time scale.
+
+```{r}
+
+```
+
+
+
+
+
+
+
+
+
+
+
